@@ -1,5 +1,5 @@
 module "recommendations" {
-  source = "github.com/jjasonhenrique/curso-containers-linuxtips-module-service?ref=v1.4.0"
+  source = "github.com/jjasonhenrique/curso-containers-linuxtips-module-service?ref=v1.5.1"
   #source       = "/home/jason/Utils/Github/curso-containers-linuxtips-module-service"
   region       = var.region
   cluster_name = var.cluster_name
@@ -65,6 +65,10 @@ module "recommendations" {
       name  = "CALORIES_SERVICE_ENDPOINT"
       value = "nutrition-calories.containers-linuxtips.discovery.com:30000"
     },
+    {
+      name  = "version",
+      value = timestamp() 
+    }
   ]
 
   vpc_id = data.aws_ssm_parameter.vpc.value
