@@ -1,5 +1,5 @@
 module "imc" {
-  source = "github.com/jjasonhenrique/curso-containers-linuxtips-module-service?ref=v1.4.0"
+  source = "github.com/jjasonhenrique/curso-containers-linuxtips-module-service?ref=v1.5.1"
   #source       = "/home/jason/Utils/Github/curso-containers-linuxtips-module-service"
   region       = var.region
   cluster_name = var.cluster_name

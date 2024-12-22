@@ -1,5 +1,5 @@
 module "health_api" {
-  source = "github.com/jjasonhenrique/curso-containers-linuxtips-module-service?ref=v1.4.0"
+  source = "github.com/jjasonhenrique/curso-containers-linuxtips-module-service?ref=v1.5.1"
   #source       = "/home/jason/Utils/Github/curso-containers-linuxtips-module-service"
   region       = var.region
   cluster_name = var.cluster_name
@@ -16,7 +16,7 @@ module "health_api" {
   container_image = "fidelissauro/health-api:latest"
 
   // Service Connect
-  use_service_connect = true
+  use_service_connect = false
   service_protocol = "http"
   service_connect_name = data.aws_ssm_parameter.service_connect_name.value
   service_connect_arn = data.aws_ssm_parameter.service_connect_arn.value
@@ -43,6 +43,10 @@ module "health_api" {
     }
   ]
 
+  deployment_controller = "CODE_DEPLOY"
+
+  codedeploy_strategy = "CodeDeployDefault.ECSLinear10PercentEvery1Minutes"
+
   service_hosts = [
     #"health.linuxtips.demo"
     "health.containers-linuxtips.internal.com"
@@ -66,6 +70,10 @@ module "health_api" {
     {
       name  = "RECOMMENDATIONS_SERVICE_ENDPOINT",
       value = "nutrition-recommendations.containers-linuxtips.discovery.com:30000"
+    },
+    {
+      name  = "version",
+      value = timestamp() 
     }
   ]
 
